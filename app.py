@@ -40,18 +40,27 @@ if price_id:
     except Exception as error:
         st.error(error)
 
+st.write("Obtendo inscrições...")
+subscriptions = stripe.Subscription.list(
+    status="active"  # (active, past_due, canceled, etc.)
+)
 
+total_subscription = len(subscriptions)
+st.write(f"{total_subscription} inscrições encontradas.")
 
+total_executions = total_subscription
+
+limit_exec = st.toggle("Update apenas 5 inscrições")
+st.caption("Esta opção limitará ao update de até 5 inscrições para fins de teste.")
+if limit_exec:    
+    total_executions = 5
+    
 if allow_price_update:
-    st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor definido acima.")
+    if not limit_exec:
+        st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor definido acima.")
+        
     if st.button("Atualizar preço"):
 
-
-        subscriptions = stripe.Subscription.list(
-            status="active"  # (active, past_due, canceled, etc.)
-        )
-
-        total_subscription = len(subscriptions)
         progress_increment = int(100/total_subscription)
         latest_iteration = st.empty()
         progress_text = "Price update in progress. Please wait."
@@ -82,6 +91,9 @@ if allow_price_update:
             log = get_info_log(stripe, subscription)
             data_log.append(log)
 
+            if count >= total_executions:
+                break
+
         progress_bar.empty()
 
         if total_subscription == count:
@@ -91,7 +103,9 @@ if allow_price_update:
 
         df = get_update_report(data_log)
         st.session_state.df = df
-        st.balloons()
+        
+        if count > 100:
+            st.balloons()
 
 if 'df' in st.session_state:
 
