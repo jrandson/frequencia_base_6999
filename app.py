@@ -38,7 +38,7 @@ if price_id:
     except Exception as error:
         st.error(error)
 
-if 'SECRET_KEY' in st.session_state:
+if stripe.api_key:
     st.write("Obtendo inscrições...")
     subscriptions = stripe.Subscription.list(
         status="active"  # (active, past_due, canceled, etc.)
