@@ -26,8 +26,6 @@ else:
 
 stripe.api_key = st.session_state.SECRET_KEY
 
-price_id = st.text_input("Price ID", placeholder="price_...")
-
 if stripe.api_key:
     st.write("Obtendo inscrições...")
     subscriptions = stripe.Subscription.list(
@@ -45,6 +43,8 @@ if stripe.api_key:
         st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
     else:
         st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor.")
+
+price_id = st.text_input("Price ID", placeholder="price_...")
 
 if price_id:
     try:
