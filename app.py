@@ -28,16 +28,6 @@ stripe.api_key = st.session_state.SECRET_KEY
 
 price_id = st.text_input("Price ID", placeholder="price_...")
 
-if price_id:
-    try:
-        st.write(f"__Price id__: {price_id}")
-        st.session_state.price_id = price_id
-        price = stripe.Price.retrieve(price_id)
-        st.write(f"__Price value__: R$ {price['unit_amount'] / 100:.2f}")
-        allow_price_update = True
-    except Exception as error:
-        st.error(error)
-
 if stripe.api_key:
     st.write("Obtendo inscrições...")
     subscriptions = stripe.Subscription.list(
@@ -54,8 +44,18 @@ if stripe.api_key:
         total_executions = 5
         st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
     else:
-        st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor definido acima.")
-    
+        st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor.")
+
+if price_id:
+    try:
+        st.write(f"__Price id__: {price_id}")
+        st.session_state.price_id = price_id
+        price = stripe.Price.retrieve(price_id)
+        st.write(f"__Price value__: R$ {price['unit_amount'] / 100:.2f}")
+        allow_price_update = True
+    except Exception as error:
+        st.error(error)
+        
 if allow_price_update:
     if st.button("Atualizar preço"):
 
