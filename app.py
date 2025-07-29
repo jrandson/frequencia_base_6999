@@ -44,7 +44,7 @@ subscriptions = stripe.Subscription.list(
 )
 
 total_subscription = len(subscriptions)
-st.write(f"{total_subscription} inscrições encontradas.")
+st.success(f"{total_subscription} inscrições encontradas.")
 
 total_executions = total_subscription
 
