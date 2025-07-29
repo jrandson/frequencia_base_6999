@@ -35,7 +35,7 @@ if price_id:
         st.write(f"__Price id__: {price_id}")
         st.session_state.price_id = price_id
         price = stripe.Price.retrieve(price_id)
-        st.write(f"__Price value__: R$ {price['unit_amount'] / 100:.2f}*")
+        st.write(f"__Price value__: R$ {price['unit_amount'] / 100:.2f}")
         allow_price_update = True
     except Exception as error:
         st.error(error)
@@ -43,7 +43,7 @@ if price_id:
 
 
 if allow_price_update:
-    st.caption("Esta ação irá alterar toadas as incrições ativas para o novo valor definido acima.")
+    st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor definido acima.")
     if st.button("Atualizar preço"):
 
 
