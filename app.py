@@ -13,8 +13,6 @@ st.markdown(
     """
 )
 
-
-
 allow_price_update = False
 SECRET_KEY = ""
 
@@ -51,14 +49,13 @@ st.write(f"{total_subscription} inscrições encontradas.")
 total_executions = total_subscription
 
 limit_exec = st.toggle("Update apenas 5 inscrições")
-st.caption("Esta opção limitará ao update de até 5 inscrições para fins de teste.")
 if limit_exec:    
     total_executions = 5
+    st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
+else:
+    st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor definido acima.")
     
 if allow_price_update:
-    if not limit_exec:
-        st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor definido acima.")
-        
     if st.button("Atualizar preço"):
 
         progress_increment = int(100/total_subscription)
