@@ -21,7 +21,7 @@ SECRET_KEY = ""
 SECRET_KEY = st.text_input("Stripe Secret Key", placeholder="sk_...")
 st.session_state.SECRET_KEY = SECRET_KEY
 
-if 'SECRET_KEY' in st.session_state and st.session_state.SECRET_KEY != "" and "sk_" in st.session_state.SECRET_KEY:
+if 'SECRET_KEY' in st.session_state and st.session_state.SECRET_KEY != "":
     st.success("STRIPE Key registered successfully")
 else:
     st.error("STRIPE Key not registered")
