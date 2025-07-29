@@ -38,15 +38,16 @@ if price_id:
     except Exception as error:
         st.error(error)
 
-st.write("Obtendo inscrições...")
-subscriptions = stripe.Subscription.list(
-    status="active"  # (active, past_due, canceled, etc.)
-)
+if 'SECRET_KEY' in st.session_state:
+    st.write("Obtendo inscrições...")
+    subscriptions = stripe.Subscription.list(
+        status="active"  # (active, past_due, canceled, etc.)
+    )
 
-total_subscription = len(subscriptions)
-st.success(f"{total_subscription} inscrições encontradas.")
-
-total_executions = total_subscription
+    total_subscription = len(subscriptions)
+    st.success(f"{total_subscription} inscrições encontradas.")
+    
+    total_executions = total_subscription
 
 limit_exec = st.toggle("Atualizar apenas 5 inscrições")
 if limit_exec:    
