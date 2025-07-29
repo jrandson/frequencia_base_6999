@@ -48,7 +48,7 @@ st.write(f"{total_subscription} inscrições encontradas.")
 
 total_executions = total_subscription
 
-limit_exec = st.toggle("Update apenas 5 inscrições")
+limit_exec = st.toggle("Atualizar apenas 5 inscrições")
 if limit_exec:    
     total_executions = 5
     st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
