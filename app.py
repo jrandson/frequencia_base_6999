@@ -27,22 +27,25 @@ else:
 stripe.api_key = st.session_state.SECRET_KEY
 
 if stripe.api_key:
-    st.write("Obtendo inscrições...")
-    subscriptions = stripe.Subscription.list(
-        status="active"  # (active, past_due, canceled, etc.)
-    )
-
-    total_subscription = len(subscriptions)
-    st.success(f"{total_subscription} inscrições encontradas.")
+    try:
+        st.write("Obtendo inscrições...")
+        subscriptions = stripe.Subscription.list(
+            status="active"  # (active, past_due, canceled, etc.)
+        )
     
-    total_executions = total_subscription
-
-    limit_exec = st.toggle("Atualizar apenas 5 inscrições")
-    if limit_exec:    
-        total_executions = 5
-        st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
-    else:
-        st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor.")
+        total_subscription = len(subscriptions)
+        st.success(f"{total_subscription} inscrições encontradas.")
+        
+        total_executions = total_subscription
+    
+        limit_exec = st.toggle("Atualizar apenas 5 inscrições")
+        if limit_exec:    
+            total_executions = 5
+            st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
+        else:
+            st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor.")
+    except:
+        st.error("Verifique se a chave informada está correta.")
 
 price_id = st.text_input("Price ID", placeholder="price_...")
 
