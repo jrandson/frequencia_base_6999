@@ -49,12 +49,12 @@ if 'SECRET_KEY' in st.session_state:
     
     total_executions = total_subscription
 
-limit_exec = st.toggle("Atualizar apenas 5 inscrições")
-if limit_exec:    
-    total_executions = 5
-    st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
-else:
-    st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor definido acima.")
+    limit_exec = st.toggle("Atualizar apenas 5 inscrições")
+    if limit_exec:    
+        total_executions = 5
+        st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
+    else:
+        st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor definido acima.")
     
 if allow_price_update:
     if st.button("Atualizar preço"):
