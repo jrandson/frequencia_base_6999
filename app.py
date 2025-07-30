@@ -22,13 +22,13 @@ else:
 stripe.api_key = st.session_state.SECRET_KEY
 
 
-def get_all_subscriptions(status="active"):
+def get_all_subscriptions(status="active", limit=100):
     """Função para buscar todas as inscrições com paginação"""
     all_subscriptions = []
     has_more = True
     starting_after = None
     params = {
-        "limit": 2,
+        "limit": limit,
         "status": status
     }
     
@@ -63,8 +63,9 @@ def get_all_subscriptions(status="active"):
 if stripe.api_key:
     try:
  
-        subscriptions = get_all_subscriptions()
-
+        subscriptions = get_all_subscriptions(limit=2)
+        st.write(subscriptions)
+        
         total_subscription = len(subscriptions)
         st.success(f"{total_subscription} inscrições encontradas.")
 
