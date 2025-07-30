@@ -25,7 +25,7 @@ def get_update_report(data_log):
 
     return df
 
-
+@st.cache_data
 def get_all_subscriptions(stripe, status="active", limit=100):
     """Função para buscar todas as inscrições com paginação"""
     all_subscriptions = []
