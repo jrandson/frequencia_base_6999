@@ -36,8 +36,6 @@ if stripe.api_key:
             status="active"  # (active, past_due, canceled, etc.)
         )
 
-        st.write(subscriptions)
-    
         total_subscription = len(subscriptions)
         st.success(f"{total_subscription} inscrições encontradas.")
         
