@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import time
 import stripe
-from utils import get_info_log, get_update_report
+from utils import get_info_log, get_update_report, get_all_subscriptions
 
 st.title("Xeque Mate Global - Stripe :chess_pawn:")
 st.markdown(""" """)
@@ -21,44 +21,6 @@ else:
 
 stripe.api_key = st.session_state.SECRET_KEY
 
-
-def get_all_subscriptions(status="active", limit=100):
-    """Função para buscar todas as inscrições com paginação"""
-    all_subscriptions = []
-    has_more = True
-    starting_after = None
-    params = {
-        "limit": limit,
-        "status": status
-    }
-    
-    with st.status(f"Buscando páginas no servidor da Stripe, com {params['limit']} itens por página", expanded=True) as status_display:
-        print(f"Buscando inscrições com status: {status}")
-        st.spinner(text="In progress...",)
-        total_paginas = 0
-
-        while has_more:
-            total_paginas += 1
-            st.write("Buscando página:", total_paginas)
-
-            if starting_after:
-                params["starting_after"] = starting_after
-                print(f"Paginação iniciada a partir de: {starting_after}")
-
-            response = stripe.Subscription.list(**params)
-            data = response['data']
-            all_subscriptions.extend(data)
-
-            if response.get("has_more"):
-                starting_after = data[-1]["id"]
-            else:
-                has_more = False
-        status_display.update(label="Completo", state="complete", expanded=False)
- 
-    st.write(f"Total de páginas consultadas: {total_paginas}")
-    st.write(f"Total de inscrições encontradas<b>: {len(all_subscriptions)}</b>", unsafe_allow_html=True)
- 
-    return all_subscriptions
 
 if stripe.api_key:
     try:
