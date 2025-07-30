@@ -44,7 +44,7 @@ if stripe.api_key:
         limit_exec = st.toggle("Atualizar apenas 3 inscrições")
         if limit_exec:    
             total_executions = 3
-            st.caption("Esta ação irá alterar 5 inscrições ativas para fins de teste.")
+            st.caption(f"Esta ação irá alterar {limit_exec} inscrições ativas para fins de teste.")
         else:
             st.caption("Esta ação irá alterar todas as incrições ativas para o novo valor.")
     except:
