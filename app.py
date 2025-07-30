@@ -26,12 +26,16 @@ else:
 
 stripe.api_key = st.session_state.SECRET_KEY
 
+
+
 if stripe.api_key:
     try:
         st.write("Obtendo inscrições...")
         subscriptions = stripe.Subscription.list(
             status="active"  # (active, past_due, canceled, etc.)
         )
+
+        st.write(subscriptions)
     
         total_subscription = len(subscriptions)
         st.success(f"{total_subscription} inscrições encontradas.")
