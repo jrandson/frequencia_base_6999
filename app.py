@@ -63,8 +63,7 @@ def get_all_subscriptions(status="active", limit=100):
 if stripe.api_key:
     try:
  
-        subscriptions = get_all_subscriptions(limit=2)
-        st.write(subscriptions)
+        subscriptions = get_all_subscriptions()
         
         total_subscription = len(subscriptions)
         st.success(f"{total_subscription} inscrições encontradas.")
@@ -142,7 +141,7 @@ if allow_price_update:
         df = get_update_report(data_log)
         st.session_state.df = df
 
-        if count > 100:
+        if count == total_subscription:
             st.balloons()
 
 if 'df' in st.session_state:
