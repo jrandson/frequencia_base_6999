@@ -32,6 +32,7 @@ if stripe.api_key:
     try:
         st.write("Obtendo inscrições...")
         subscriptions = stripe.Subscription.list(
+            limit=5000,
             status="active"  # (active, past_due, canceled, etc.)
         )
 
