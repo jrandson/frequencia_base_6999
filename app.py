@@ -27,29 +27,42 @@ def get_all_subscriptions(status="active"):
     all_subscriptions = []
     has_more = True
     starting_after = None
+    params = {
+        "limit": 1,
+        "status": status
+    }
+    
+    with st.status(f"Buscando páginas no servidor da Stripe, com {params['limit']} itens por página", expanded=True) as status_display:
+        print(f"Buscando inscrições com status: {status}")
+        st.spinner(text="In progress...",)
+        total_paginas = 0
 
-    while has_more:
-        params = {
-            "limit": 100,
-            "status": status
-        }
-        if starting_after:
-            params["starting_after"] = starting_after
+        while has_more:
+            total_paginas += 1
+            st.write("Buscando página:", total_paginas)
 
-        response = stripe.Subscription.list(**params)
-        data = response['data']
-        all_subscriptions.extend(data)
+            if starting_after:
+                params["starting_after"] = starting_after
+                print(f"Paginação iniciada a partir de: {starting_after}")
 
-        if response.get("has_more"):
-            starting_after = data[-1]["id"]
-        else:
-            has_more = False
+            response = stripe.Subscription.list(**params)
+            data = response['data']
+            all_subscriptions.extend(data)
 
+            if response.get("has_more"):
+                starting_after = data[-1]["id"]
+            else:
+                has_more = False
+        status_display.update(label="Completo", state="complete", expanded=False)
+ 
+    st.write(f"Total de páginas consultadas: {total_paginas}")
+    st.write(f"Total de inscrições encontradas<b>: {len(all_subscriptions)}</b>", unsafe_allow_html=True)
+ 
     return all_subscriptions
 
 if stripe.api_key:
     try:
-        st.write("Obtendo inscrições...")
+ 
         subscriptions = get_all_subscriptions()
 
         total_subscription = len(subscriptions)
