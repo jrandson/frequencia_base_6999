@@ -28,7 +28,7 @@ def get_all_subscriptions(status="active"):
     has_more = True
     starting_after = None
     params = {
-        "limit": 1,
+        "limit": 2,
         "status": status
     }
     
