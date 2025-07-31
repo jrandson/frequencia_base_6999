@@ -87,7 +87,7 @@ if allow_price_update:
                 count += 1
                 progress_value += int(progress_increment)
                 progress_bar.progress(min(progress_value, 100))
-                latest_iteration.text(f"Total atualizado: {count}")
+                # latest_iteration.text(f"Total atualizado: {count}")
 
             except Exception as e:
                 st.warning(f"Erro ao atualizar inscrição {sub_id}: {e}")
