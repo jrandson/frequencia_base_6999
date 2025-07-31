@@ -21,7 +21,7 @@ else:
 
 stripe.api_key = st.session_state.SECRET_KEY
 
-st.sesstion_state.subcriptions = []
+st.sesstion_state.subscriptions = []
 if st.button("Carregar isncrições ativas"):
     try: 
         st.sesstion_state.subscriptions = get_all_subscriptions(stripe)
@@ -29,7 +29,7 @@ if st.button("Carregar isncrições ativas"):
     except Exception as e:
         st.error(f"Erro ao buscar inscrições: {e}")
 
-total_subscription = len(subscriptions)
+total_subscription = len(st.sesstion_state.subscriptions)
 total_executions = total_subscription
 if total_subscription > 0:
     st.success(f"{total_subscription} inscrições encontradas.")
@@ -65,7 +65,7 @@ if allow_price_update:
         data_log = []
         count = 0
 
-        for subscription in subscriptions:
+        for subscription in st.sesstion_state.subscriptions:
             sub_id = subscription.id
             si_id = dict(subscription.items())['items']['data'][0].id
 
