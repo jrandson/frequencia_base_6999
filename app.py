@@ -29,14 +29,7 @@ if st.button("Carregar isncrições ativas"):
         total_subscription = len(subscriptions)
         st.success(f"{total_subscription} inscrições encontradas.")
 
-        total_executions = total_subscription
-
-        limit_exec = st.toggle("Atualizar apenas 3 inscrições")
-        if limit_exec:
-            total_executions = 3
-            st.caption(f"Esta ação irá alterar {total_executions} inscrições ativas para fins de TESTE.")
-        else:
-            st.caption("Esta ação irá alterar todas as incrições ATIVAS para o novo valor.")
+        total_executions = total_subscription        
     except Exception as e:
         st.error(f"Erro ao buscar inscrições: {e}")
 
@@ -51,6 +44,13 @@ if price_id:
         allow_price_update = True
     except Exception as error:
         st.error(error)
+
+limit_exec = st.toggle("Atualizar apenas 3 inscrições")
+if limit_exec:
+    total_executions = 3
+    st.caption(f"Esta ação irá alterar {total_executions} inscrições ativas para fins de TESTE.")
+else:
+    st.caption("Esta ação irá alterar todas as incrições ATIVAS para o novo valor.")
 
 if allow_price_update:
     if st.button("Atualizar preço"):
