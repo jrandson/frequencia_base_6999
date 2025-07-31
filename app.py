@@ -85,9 +85,13 @@ if allow_price_update:
                 data_log.append(log)
 
                 count += 1
+                if count % 300 == 0:
+                    st.write("Esperando 5s antes de continuar")
+                    time.sleep(5)
+                    
                 progress_value += int(progress_increment)
                 progress_bar.progress(min(progress_value, 100))
-                # latest_iteration.text(f"Total atualizado: {count}")
+                latest_iteration.text(f"Total atualizado: {count}")
 
             except Exception as e:
                 st.warning(f"Erro ao atualizar inscrição {sub_id}: {e}")
