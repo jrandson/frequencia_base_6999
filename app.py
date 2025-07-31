@@ -22,9 +22,8 @@ else:
 stripe.api_key = st.session_state.SECRET_KEY
 
 
-if stripe.api_key:
-    try:
- 
+if st.button("Carregar isncrições ativas"):
+    try: 
         subscriptions = get_all_subscriptions(stripe)
         
         total_subscription = len(subscriptions)
