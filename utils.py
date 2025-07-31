@@ -42,10 +42,7 @@ def get_all_subscriptions(stripe, status="active", limit=100):
 
         while has_more:
             total_paginas += 1
-
-            if total_paginas <=3:
-                continue
-                
+               
             st.write("Buscando página:", total_paginas)
 
             if starting_after:
